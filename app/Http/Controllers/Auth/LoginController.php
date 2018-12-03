@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use Illuminate\Http\Request;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 
 class LoginController extends Controller
@@ -16,7 +17,7 @@ class LoginController extends Controller
     | redirecting them to your home screen. The controller uses a trait
     | to conveniently provide its functionality to your applications.
     |
-    */
+     */
 
     use AuthenticatesUsers;
 
@@ -35,5 +36,19 @@ class LoginController extends Controller
     public function __construct()
     {
         $this->middleware('guest')->except('logout');
+    }
+
+
+    protected function validateLogin(Request $request)
+    {
+        $this->validate($request, [
+            'email' => 'required|string',
+            'password' => 'required|string',
+            'captcha' => 'required|captcha',
+        ], [
+            'captcha.required' => trans('validation.required'),
+            'captcha.captcha' => trans('validation.captcha'),
+        ]);
+
     }
 }
