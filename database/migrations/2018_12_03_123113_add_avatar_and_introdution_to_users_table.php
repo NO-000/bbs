@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class AddAvatarAndIntrodutionAndFollowingsIdAndFollowersIdToUsersTable extends Migration
+class AddAvatarAndIntrodutionToUsersTable extends Migration
 {
     /**
      * Run the migrations.
@@ -14,7 +14,8 @@ class AddAvatarAndIntrodutionAndFollowingsIdAndFollowersIdToUsersTable extends M
     public function up()
     {
         Schema::table('users', function (Blueprint $table) {
-            //
+            $table->string('avatar')->nullable();
+            $table->string('introduction')->nullable();
         });
     }
 
@@ -26,7 +27,7 @@ class AddAvatarAndIntrodutionAndFollowingsIdAndFollowersIdToUsersTable extends M
     public function down()
     {
         Schema::table('users', function (Blueprint $table) {
-            //
+            $table->dropColumn(['introduction', 'avatar']);
         });
     }
 }
