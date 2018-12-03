@@ -61,6 +61,25 @@
                             </div>
                         </div>
 
+                        <div class="form-group row">
+                            <label for="captcha" class="col-md-4 col-form-label text-md-right">验证码</label>
+
+                            <div class="col-md-3">
+                                <input type="text" class="form-control {{$errors->has('captcha') ? 'is-invalid' : '' }}"
+                                    name="captcha" placeholder="">
+
+                                    @if($errors->has('captcha'))
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $errors->first('captcha') }}</strong>
+                                         </span>
+                                    @endif
+                            </div>
+
+                            <div class="col-md-3 border">
+                                <img src="{{captcha_src()}}" style="cursor: pointer" onclick="this.src='{{captcha_src()}}'+Math.random()">
+                            </div>
+                        </div>
+
                         <div class="form-group row mb-0">
                             <div class="col-md-6 offset-md-4">
                                 <button type="submit" class="btn btn-primary">
