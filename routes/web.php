@@ -1,5 +1,4 @@
 <?php
-
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -16,3 +15,5 @@
 Auth::routes();
 
 Route::get('/', 'HomeController@index')->name('home');
+
+Route::resource('users', 'UsersController',['only' => ['show','edit','update','destroy']]);

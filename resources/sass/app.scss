@@ -12,3 +12,12 @@
   background-color: #fff;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);
 }
+
+.hidden-text{
+            width: 60%;
+			overflow:hidden;
+			text-overflow:ellipsis;
+			white-space:nowrap;
+}
+
+
