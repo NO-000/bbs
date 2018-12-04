@@ -11,7 +11,7 @@ class RepliesTableSeeder extends Seeder
      */
     public function run()
     {
-        $replies = Factory(Reply::class,500)->make()->toArray();
+        $replies = Factory(Reply::class,2000)->make()->toArray();
         Reply::insert($replies);
     }
 }

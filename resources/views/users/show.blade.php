@@ -8,9 +8,12 @@
 
         <div class="m-auto justify-content-center text-center">
             <img class="img-thumbnail center-block" src="{{$user->avatar}}" alt="" width="200" height="200">
+
+            <div class="mt-2 px-1">
+                <button type="button" class="btn btn-info px-3">关注Ta</button>
+                <button type="button" class="btn btn-info px-3">私信Ta</button>
+            </div>
         </div>
-        <button>关注TA</button>
-        <button>私信TA</button>
         <hr>
 
         <h4>名字</h4>
@@ -44,51 +47,53 @@
 
 <ul class="nav nav-pills nav-justified " role="tablist">
     <li class="nav-item">
-        <a class="nav-link active border" data-toggle="pill" href="#topics">Ta的话题</a>
+        <a class="nav-link {{active_class(!if_query('tab','replies'))}} border" href="{{ route('users.show', $user->id) }}">Ta的话题</a>
     </li>
     <li class="nav-item">
-        <a class="nav-link border" data-toggle="pill" href="#replies">Ta的回复</a>
+        <a class="nav-link border {{active_class(if_query('tab','replies'))}}" href="{{ route('users.show', [$user->id, 'tab' => 'replies']) }}">Ta的回复</a>
     </li>
 </ul>
 <div class="card">
-    <!-- Tab panes -->
-    <div class="tab-content">
 
-        <div id="topics" class="tab-pane active">
-            <ul class="list-group">
 
-                @foreach ($topics as $topic)
-                <li class="list-group-item border-left-0 border-right-0 text-secondary">
+    @if (!if_query('tab','replies'))
+
+        <ul class="list-group">
+
+            @foreach ($topics as $topic)
+            <li class="list-group-item border-left-0 border-right-0 text-secondary">
                 <div class="hidden-text float-left"><a class="" href="" title="{{$topic->title}}">{{$topic->title}}</a></div>
-                    <small class=" float-right ">
-                        0回复
-                        ·
-                        <span data-toggle="tooltip" title="{{$topic->updated_at}}">{{$topic->updated_at->diffForHumans()}}</span>
-                    </small>
-                </li>
-                @endforeach
+                <small class=" float-right ">
+                    0回复
+                    ·
+                    <span data-toggle="tooltip" title="{{$topic->updated_at}}">{{$topic->updated_at->diffForHumans()}}</span>
+                </small>
+            </li>
+            @endforeach
 
-            </ul>
-        </div>
+        </ul>
+        <div class="mt-3 ml-3"> {{ $topics->links() }}</div>
 
+    @else
 
-        <div id="replies" class="tab-pane fade ">
+        <ul class="list-group">
 
-            <ul class="list-group">
+            @foreach ($replies as $reply)
+            <li class="list-group-item border-left-0 border-right-0">
+                <div class="hidden-text "><a class="" href="#" title="{{$reply->content}}">{{$reply->content}}</a></div>
+                <div class="hidden-text ">
+                    <p>{{$reply->topic->title}}</p>
+                </div>
+                <small data-toggle="tooltip" title="{{$reply->updated_at}}">回复于{{$reply->updated_at->diffForHumans()}}</small>
+            </li>
+            @endforeach
 
-                @foreach ($replies as $reply)
-                <li class="list-group-item border-left-0 border-right-0">
-                    <div class="hidden-text "><a class="" href="#" title="{{$reply->content}}">{{$reply->content}}</a></div>
-                    <div class="hidden-text "><p>{{$reply->topic->title}}</p></div>
-                    <small data-toggle="tooltip" title="{{$reply->updated_at}}">{{$reply->updated_at}}</small>
-                </li>
-                @endforeach
+        </ul>
+        <div class="mt-3 ml-3"> {{  $replies->appends(['tab' => 'replies'])->links()}}</div>
 
-            </ul>
+    @endif
 
-        </div>
-
-    </div>
+</div>
 </div>
 </div>
 @endsection

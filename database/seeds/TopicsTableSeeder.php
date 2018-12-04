@@ -11,7 +11,7 @@ class TopicsTableSeeder extends Seeder
      */
     public function run()
     {
-        $topics = Factory(Topic::class,500)->make()->toArray();
+        $topics = Factory(Topic::class,2000)->make()->toArray();
         Topic::insert($topics);
     }
 }

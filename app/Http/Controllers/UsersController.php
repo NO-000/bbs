@@ -10,8 +10,8 @@ class UsersController extends Controller
 
     public function show(User $user)
     {
-        $topics = $user->topics;
-        $replies = $user->replies()->with('topic')->get();
+        $topics = $user->topics()->orderBy('id','desc')->paginate(15);
+        $replies = $user->replies()->with('topic')->orderBy('id','desc')->paginate(7);
         return view('users.show',compact('user','topics','replies'));
     }
 
