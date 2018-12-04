@@ -14,7 +14,7 @@ class UsersTableSeeder extends Seeder
     {
         User::insert([
             'name' => 'admin',
-            'email' => '1234@123',
+            'email' => '1234@123.com',
             'password' => Hash::make('123456'),
             'remember_token' => str_random(10),
             'avatar' => 'https://img.zcool.cn/community/01786557e4a6fa0000018c1bf080ca.png@1280w_1l_2o_100sh.png',
