@@ -1,6 +1,6 @@
-<div id="basic" class="container tab-pane active"><br>
+<div id="basic" class="container tab-pane " ><br>
     <div style="margin-top:20%">
-    <form action="{{route('users.show',$user->id)}}" method="POST">
+    <form action="{{route('users.update',$user->id)}}" method="POST">
 
         @method('PUT')
 

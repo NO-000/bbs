@@ -37,9 +37,9 @@ class UserRequest extends FormRequest
             case 'PATCH':
             {
                 return [
-                        'name' => 'required|string|max:255',
-                        'introduction' => 'string|max:255',
-                        'avatar' => '',
+                        'name' => 'sometimes|required|nullable|string|max:255',
+                        'introduction' => 'sometimes|string|max:255',
+                        'avatar' => 'sometimes|required',
 
                 ];
             }

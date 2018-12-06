@@ -1,3 +1,5 @@
 *
-!public/
+!public
+!public/default/
+!public/default/*
 !.gitignore

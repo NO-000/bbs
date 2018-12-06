@@ -5,33 +5,50 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use Illuminate\Http\Request;
 use App\Http\Requests\UserRequest;
+use App\Handlers\ImageUploadHandler;
+use Illuminate\Support\Facades\Auth;
+
 class UsersController extends Controller
 {
 
     public function __construct()
     {
-        $this->middleware('auth',['except' => ['show']]);
+        $this->middleware('auth', ['except' => ['show']]);
     }
 
     public function show(User $user)
     {
-        $topics = $user->topics()->orderBy('id','desc')->paginate(15);
-        $replies = $user->replies()->with('topic')->orderBy('id','desc')->paginate(7);
-        return view('users.show',compact('user','topics','replies'));
+        $topics = $user->topics()->orderBy('id', 'desc')->paginate(19);
+
+        $replies = $user->replies()->with('topic')->orderBy('id', 'desc')->paginate(8);
+
+        return view('users.show', compact('user', 'topics', 'replies'));
     }
 
 
     public function edit(User $user)
     {
-        return view('users.edit.edit',compact('user'));
+
+        $this->authorize('own',$user);
+
+        return view('users.edit.edit', compact('user'));
     }
 
 
-    public function update(UserRequest $request, User $user)
+    public function update(UserRequest $request, User $user, ImageUploadHandler $image)
     {
-        $user->update($request->all());
 
-        return redirect()->back()->with('success','修改个人资料成功！');
+        $this->authorize('own',$user);
+
+        $data = $request->all();
+
+        if ($request->avatar) {
+            $data['avatar'] = $image->getImageStorePath($request->avatar, 'avatars');
+        }
+
+        $user->update($data);
+
+        return redirect()->back()->with('success', '修改个人资料成功！');
 
     }
 

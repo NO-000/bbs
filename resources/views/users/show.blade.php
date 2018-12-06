@@ -7,7 +7,7 @@
     <div class="py-3 px-3">
 
         <div class="m-auto justify-content-center text-center">
-            <img class="img-thumbnail center-block" src="{{$user->avatar}}" alt="" width="200" height="200">
+            <img class="img-thumbnail center-block" src="{{asset(Storage::url($user->avatar))}}" alt="" width="200" height="200">
 
             <div class="mt-2 px-1">
                 <button type="button" class="btn btn-info px-3">关注Ta</button>

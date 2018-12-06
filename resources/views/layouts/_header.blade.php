@@ -30,7 +30,7 @@
                 <li class="nav-item dropdown">
                     <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown"
                         aria-haspopup="true" aria-expanded="false" v-pre>
-                        <img class="rounded-circle" src="{{Auth::user()->avatar}}" alt="{{Auth::user()->name}}" width="30" height="30">
+                        <img class="rounded-circle" src="{{asset(Storage::url(Auth::user()->avatar))}}" alt="{{Auth::user()->name}}" width="30" height="30">
                         {{ Auth::user()->name }} <span class="caret"></span>
                     </a>
 

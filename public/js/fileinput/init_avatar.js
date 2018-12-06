@@ -1,23 +1,6 @@
-<div id="avatar" class="container tab-pane col-md-8" ><br>
-    {{-- <div style="margin-top:15%"> --}}
-        <form action="{{route('users.update',$user->id)}}" enctype="multipart/form-data" method="POST">
-
-                @method('PUT')
-
-                @csrf
-
-                <div class="m-auto justify-content-center text-center"><img class="img-thumbnail center-block" src="{{asset(Storage::url($user->avatar))}}" alt="" width="200" height="200"></div>
-                <hr>
-                <input id="avatar" type="file" class="file" name="avatar"  >
-
-              </form>
-    {{-- </div> --}}
-  </div>
-
-  {{-- <script>
-      $("#avatar").fileinput({
+$("#input-id").fileinput({
                      language: 'zh', //设置语言
-                     uploadUrl:'{{route('users.update',$user->id)}}',
+                     uploadUrl:"http://127.0.0.1/testDemo/fileupload/upload.do", //上传的地址
                     allowedFileExtensions: ['jpg', 'gif', 'png'],//接收的文件后缀
                    //uploadExtraData:{"id": 1, "fileName":'123.mp3'},
                     uploadAsync: true, //默认异步上传
@@ -43,7 +26,7 @@
     });
 
 
-    $("#avatar").fileinput({
+    $("#input-id").fileinput({
                          showUpload : true,
                          showRemove : false,
                          uploadUrl:"${ctx}/upload/one/8",
@@ -61,4 +44,4 @@
                         $("#attachment").val(data.response.attachment);
                     });
 
-  </script> --}}
+
