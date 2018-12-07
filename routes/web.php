@@ -21,6 +21,8 @@ Route::get('/', 'HomeController@index')->name('home');
 
 Route::resource('users', 'UsersController',['only' => ['show','edit','update','destroy']]);
 
-Route::resource('categories', 'categoriesController',['only' => ['show']]);
+Route::resource('categories', 'CategoriesController',['only' => ['show']]);
 
 Route::resource('topics', 'TopicsController',['only' => ['create','store','show','edit','update','delete']]);
+
+Route::post('upload_image', 'TopicsController@uploadImage')->name('topics.upload_image');
