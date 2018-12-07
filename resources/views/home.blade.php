@@ -8,7 +8,7 @@
 
             <ul class="nav nav-pills nav-justified border-bottom-0" role="tablist">
                     <li class="nav-item">
-                    <a class="nav-link {{active_class(if_query('order',''))}} {{active_class(if_query('order','newReplies'))}}"  href="?order=newReplies">最近回复</a>
+                    <a class="nav-link {{active_class(if_query('order','')||if_query('order','newReplies'))}} "  href="?order=newReplies">最近回复</a>
                     </li>
                     <li class="nav-item">
                       <a class="nav-link {{active_class(if_query('order','newTopics'))}}"  href="?order=newTopics">最近发布</a>

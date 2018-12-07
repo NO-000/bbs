@@ -11,9 +11,15 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <!-- Left Side Of Navbar -->
             <ul class="navbar-nav mr-auto nav">
-                    <li class="nav-item {{ active_class(if_route('home')) }}"><a class="nav-link disabled" href="{{ route('home') }}">话题</a></li>
-                    <li class="nav-item {{ active_class((if_route('categories.show') && if_route_param('category', 2))) }}"><a class="nav-link disabled" href="{{ route('categories.show', 2) }}">分享</a></li>
-                    <li class="nav-item {{ active_class((if_route('categories.show') && if_route_param('category', 3))) }}"><a class="nav-link disabled" href="{{ route('categories.show', 3) }}">公告</a></li>
+
+                <li class="nav-item {{ active_class(if_route('home')) }}"><a class="nav-link disabled" href="{{ route('home') }}">话题</a></li>
+
+                <li class="nav-item {{ active_class((if_route('categories.show') && if_route_param('category', 2))) }}"><a
+                        class="nav-link disabled" href="{{ route('categories.show', 2) }}">分享</a></li>
+
+                <li class="nav-item {{ active_class((if_route('categories.show') && if_route_param('category', 3))) }}"><a
+                        class="nav-link disabled" href="{{ route('categories.show', 3) }}">公告</a></li>
+
             </ul>
 
             <!-- Right Side Of Navbar -->
@@ -29,11 +35,35 @@
                     @endif
                 </li>
                 @else
+
+                    <li class="nav-item dropdown pr-2">
+
+                        <a id="createDropdown" class="nav-link " href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+
+                            <img class="mt-1" src="{{asset(Storage::url('default/create.png'))}}" alt="" width="25" height="25">
+
+                        </a>
+
+                        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="createDropdown">
+
+                            <a class="dropdown-item" data-toggle="modal" data-target="#myModal">
+                                新建帖子
+                            </a>
+
+                        </div>
+
+                    </li>
+
                 <li class="nav-item dropdown">
+
                     <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown"
                         aria-haspopup="true" aria-expanded="false" v-pre>
-                        <img class="rounded-circle" src="{{asset(Storage::url(Auth::user()->avatar))}}" alt="{{Auth::user()->name}}" width="30" height="30">
+
+                        <img class="rounded-circle" src="{{asset(Storage::url(Auth::user()->avatar))}}" alt="{{Auth::user()->name}}"
+                            width="30" height="30">
+
                         {{ Auth::user()->name }} <span class="caret"></span>
+
                     </a>
 
                     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
@@ -42,9 +72,13 @@
                             个人资料
                         </a>
 
+                        <div class="dropdown-divider"></div>
+
                         <a class="dropdown-item" href="{{ route('users.edit',Auth::id()) }}">
                             修改资料
                         </a>
+
+                        <div class="dropdown-divider"></div>
 
                         <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();
                                              document.getElementById('logout-form').submit();">
@@ -54,6 +88,7 @@
                         <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                             @csrf
                         </form>
+
                     </div>
                 </li>
                 @endguest

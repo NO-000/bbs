@@ -29,6 +29,9 @@
 
         <main class="py-5">
             @yield('content')
+
+            @include('topics._create')
+
         </main>
 
 
