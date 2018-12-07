@@ -10473,7 +10473,7 @@ a.text-dark:focus {
 }
 
 .hidden-text {
-  width: 60%;
+  width: 75%;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;

@@ -10,8 +10,10 @@
 
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <!-- Left Side Of Navbar -->
-            <ul class="navbar-nav mr-auto">
-
+            <ul class="navbar-nav mr-auto nav">
+                    <li class="nav-item {{ active_class(if_route('home')) }}"><a class="nav-link disabled" href="{{ route('home') }}">话题</a></li>
+                    <li class="nav-item {{ active_class((if_route('categories.show') && if_route_param('category', 2))) }}"><a class="nav-link disabled" href="{{ route('categories.show', 2) }}">分享</a></li>
+                    <li class="nav-item {{ active_class((if_route('categories.show') && if_route_param('category', 3))) }}"><a class="nav-link disabled" href="{{ route('categories.show', 3) }}">公告</a></li>
             </ul>
 
             <!-- Right Side Of Navbar -->

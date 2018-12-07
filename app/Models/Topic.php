@@ -20,4 +20,30 @@ class Topic extends Model
     {
         return $this->hasMany(Reply::class);
     }
+
+    public function scopeOrder($query, $request)
+    {
+        switch ($request->get('order')) {
+            case 'newReplies':
+                $query->updatedDesc();
+                break;
+            case 'newTopics':
+                $query->cteatedDesc();
+                break;
+            default:
+                $query->updatedDesc();
+        }
+
+        return $query;
+    }
+
+    public function scopeCteatedDesc($query)
+    {
+        return $query->orderBy('id', 'desc');
+    }
+
+    public function scopeUpdatedDesc($query)
+    {
+        return $query->orderBy('updated_at', 'desc');
+    }
 }

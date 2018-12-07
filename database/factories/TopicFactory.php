@@ -11,7 +11,8 @@ $factory->define(Topic::class, function (Faker $faker) {
         'content' => $faker->text,
         'user_id' => $faker->randomElement($users),
         'category_id' => $faker->randomElement($categories),
-        'created_at' => now(),
-        'updated_at' => now(),
+        'reply_count' => 0,
+        'created_at' => date("Y-m-d H:i:s",time()),
+        'updated_at' => $faker->dateTime($max = 'now'),
     ];
 });

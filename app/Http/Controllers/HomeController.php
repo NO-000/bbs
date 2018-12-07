@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-
+use App\Models\Topic;
 class HomeController extends Controller
 {
 
@@ -13,8 +13,9 @@ class HomeController extends Controller
     }
 
 
-    public function index()
+    public function index(Request $request,Topic $topic)
     {
-        return view('home');
+        $topics = $topic->order($request)->paginate(20);
+        return view('home',compact('topics'));
     }
 }
