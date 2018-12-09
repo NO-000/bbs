@@ -20,7 +20,7 @@
                         @foreach ($topics as $topic)
 
                         <li class="list-group-item list-group-item-action">
-                            <div class="hidden-text float-left"><a href="{{$topic->id}}" title="{{$topic->title}}">{{$topic->title}}</a></div>
+                            <div class="hidden-text float-left"><a href="{{route('topics.show',$topic->id)}}" title="{{$topic->title}}">{{$topic->title}}</a></div>
                             <small class=" float-right ">
                                     {{$topic->reply_count}}回复
                                     ·

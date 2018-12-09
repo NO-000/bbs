@@ -34,7 +34,9 @@ class TopicsController extends Controller
 
     public function show(Topic $topic)
     {
-        //
+        $user = $topic->user;
+        $replies = $topic->replies()->with('user')->get();
+        return view('topics.show',compact('topic','user','replies'));
     }
 
 
