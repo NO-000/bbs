@@ -16,6 +16,7 @@ class HomeController extends Controller
     public function index(Request $request,Topic $topic)
     {
         $topics = $topic->order($request)->paginate(20);
+
         return view('home',compact('topics'));
     }
 }

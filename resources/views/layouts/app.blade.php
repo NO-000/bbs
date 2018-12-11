@@ -35,7 +35,9 @@
 
         @include('layouts._header')
 
+
         <main class="py-5">
+            @include('layouts._message')
             @yield('content')
         </main>
 

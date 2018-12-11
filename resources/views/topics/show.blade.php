@@ -36,32 +36,92 @@
         <div>
             {!! $topic->content !!}
         </div>
+        @can('ownTopic', $topic)
+
+        <div class="row mt-3 ml-3">
+
+                <button class="btn btn-info " data-toggle="modal" data-target="#edit">修改</button>
+
+            <form action="{{ route('topics.destroy',$topic->id)}}" method="POST">
+
+                @method('DELETE')
+
+                @csrf
+
+                <button type="submit" class="btn btn-danger ml-3">删除</button>
+            </form>
+
+        </div>
+        @endcan
 
     </div>
 </div>
 
 <br>
+@if (Auth::check())
 
-<div class="">
+<form action="{{ route('replies.store')}}" method="POST">
 
-    <ul class="list-group">
-        @foreach ($replies as $reply)
-        <li class="list-group-item">
+    @csrf
 
-            <div class="float-left pr-2 card border-0"> <img class="border" src="{{ asset(Storage::url($reply->user->avatar)) }}"
-                    width="50" height="50"></div>
+    <textarea class="form-control" rows="3" id="reply" name="content" placeholder="Balabala" autofocus></textarea>
 
-            <div class="card border-0">
-                <small>
-                    <a href="{{route('users.show',$reply->user->id)}}">{{$reply->user->name}}</a> · <span data-toggle="tooltip"
-                        title="{{$reply->created_at}}">{{$reply->created_at->diffForHumans()}}</span>
-                </small>
-                <p>{{$reply->content}}</p>
-            </div>
-        </li>
-        @endforeach
-    </ul>
+    <input type="hidden" name="topic_id" value="{{$topic->id}}">
 
-</div>
+    <button type="submit" class="btn btn-primary">发送</button>
 
+</form>
+@endif
+
+<br>
+
+<ul class="list-group">
+    @foreach ($replies as $reply)
+    <li class="list-group-item">
+
+        <div class="float-left pr-2 card border-0"> <img class="border" src="{{ asset(Storage::url($reply->user->avatar)) }}"
+                width="50" height="50">
+            @can('ownReply', $reply)
+
+            <form action="{{ route('replies.destroy', $reply->id) }}" method="POST">
+
+                @method('DELETE')
+
+                @csrf
+
+                <button class="badge badge-danger">删除</button>
+
+            </form>
+
+            @endcan
+        </div>
+
+        <div class="card border-0">
+            <small>
+                <a href="{{route('users.show',$reply->user->id)}}">{{$reply->user->name}}</a> · <span data-toggle="tooltip"
+                    title="{{$reply->created_at}}">{{$reply->created_at->diffForHumans()}}</span>
+            </small>
+            <span>{!! $reply->content !!}</span>
+        </div>
+    </li>
+    @endforeach
+</ul>
+
+@include('topics._edit')
+
+<script>
+    $(document).ready(function () {
+        var editor = new Simditor({
+            textarea: $('#reply'),
+            upload: {
+                url: '{{ route('topics.upload_image') }}',
+                params: { _token: '{{ csrf_token() }}' },
+                fileKey: 'upload_file',
+                connectionCount: 10,
+                leaveConfirm: '文件上传中，关闭此页面将取消上传。'
+            },
+            pasteImage: true,
+        })
+    });
+</script>
 @endsection

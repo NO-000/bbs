@@ -4,8 +4,8 @@ namespace App\Policies;
 
 use App\Models\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
-use Illuminate\Support\Facades\Auth;
-class UserPolicy
+use App\Models\Topic;
+class TopicPolicy
 {
     use HandlesAuthorization;
 
@@ -16,11 +16,11 @@ class UserPolicy
      */
     public function __construct()
     {
+
     }
 
-    public function own(User $currentUser,User $user)
+    public function ownTopic(User $currentUser,Topic $topic)
     {
-
-        return $currentUser->id === $user->id;
+        return $currentUser->id === $topic->user_id;
     }
 }

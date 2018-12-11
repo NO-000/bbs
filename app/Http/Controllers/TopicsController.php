@@ -28,14 +28,14 @@ class TopicsController extends Controller
         $topic->user_id = Auth::id();
         $topic->save();
 
-        return redirect()->back()->with('Success', '发帖成功');
+        return redirect()->route('topics.show',$topic->id)->with('Success', '发帖成功');
     }
 
 
     public function show(Topic $topic)
     {
         $user = $topic->user;
-        $replies = $topic->replies()->with('user')->get();
+        $replies = $topic->replies()->with('user')->orderBy('id','desc')->get();
         return view('topics.show',compact('topic','user','replies'));
     }
 
@@ -46,15 +46,23 @@ class TopicsController extends Controller
     }
 
 
-    public function update(Request $request, Topic $topic)
+    public function update(TopicRequest $request, Topic $topic)
     {
-        //
+        $this->authorize('ownTopic', $topic);
+
+        $topic->update($request->all());
+
+        return redirect()->back()->with('success', '成功');
     }
 
 
     public function destroy(Topic $topic)
     {
-        //
+        $this->authorize('ownTopic', $topic);
+
+        $topic->delete();
+
+        return redirect()->route('home')->with('success', '成功');
     }
 
     public function uploadImage(TopicRequest $request, ImageUploadHandler $uploader)

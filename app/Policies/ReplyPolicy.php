@@ -5,7 +5,9 @@ namespace App\Policies;
 use App\Models\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
 use Illuminate\Support\Facades\Auth;
-class UserPolicy
+use App\Models\Reply;
+
+class ReplyPolicy
 {
     use HandlesAuthorization;
 
@@ -16,11 +18,11 @@ class UserPolicy
      */
     public function __construct()
     {
+
     }
 
-    public function own(User $currentUser,User $user)
+    public function ownReply(User $currentUser,Reply $reply)
     {
-
-        return $currentUser->id === $user->id;
+        return $currentUser->id === $reply->user_id;
     }
 }

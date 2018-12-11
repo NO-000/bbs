@@ -23,8 +23,8 @@ Route::resource('users', 'UsersController',['only' => ['show','edit','update','d
 
 Route::resource('categories', 'CategoriesController',['only' => ['show']]);
 
-Route::resource('topics', 'TopicsController',['only' => ['create','store','show','edit','update','delete']]);
+Route::resource('topics', 'TopicsController',['only' => ['create','store','show','edit','update','destroy']]);
 
-Route::resource('replies', 'RepliesController'.['only'=>['store']]);
+Route::resource('replies', 'RepliesController',['only'=>['store','destroy']]);
 
 Route::post('upload_image', 'TopicsController@uploadImage')->name('topics.upload_image');
