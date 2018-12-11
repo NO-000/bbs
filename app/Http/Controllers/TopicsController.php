@@ -28,7 +28,7 @@ class TopicsController extends Controller
         $topic->user_id = Auth::id();
         $topic->save();
 
-        return redirect()->route('topics.show',$topic->id)->with('Success', '发帖成功');
+        return redirect()->route('topics.show',$topic->id)->with('success', '发帖成功');
     }
 
 
