@@ -11,7 +11,7 @@ class FollowsTableSeeder extends Seeder
      */
     public function run()
     {
-        $follows = Factory(Follow::class,20000)->make()->toArray();
+        $follows = Factory(Follow::class,2000)->make()->toArray();
         Follow::insert($follows);
     }
 }

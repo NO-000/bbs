@@ -18,8 +18,8 @@ class CreateTopicsTable extends Migration
             $table->text('title');
             $table->text('content');
             $table->string('slug')->nullable();
-            $table->integer('reply_count')->nullable();
-            $table->integer('view_count')->nullable();
+            $table->integer('reply_count')->default(0);
+            $table->integer('view_count')->default(0);
             $table->integer('user_id')->unsigned();
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->integer('category_id')->unsigned();
