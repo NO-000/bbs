@@ -23,7 +23,8 @@ Route::resource('users', 'UsersController',['only' => ['show','edit','update','d
 
 Route::resource('categories', 'CategoriesController',['only' => ['show']]);
 
-Route::resource('topics', 'TopicsController',['only' => ['create','store','show','edit','update','destroy']]);
+Route::resource('topics', 'TopicsController',['only' => ['create','store','edit','update','destroy']]);
+Route::get('topics/{topic}/{slug?}', 'TopicsController@show')->name('topics.show');
 
 Route::resource('replies', 'RepliesController',['only'=>['store','destroy']]);
 

@@ -28,15 +28,26 @@ class TopicsController extends Controller
         $topic->user_id = Auth::id();
         $topic->save();
 
-        return redirect()->route('topics.show',$topic->id)->with('success', '发帖成功');
+        return redirect()->route('topics.show', array($topic->id, $topic->slug))->with('success', '发帖成功');
     }
 
 
-    public function show(Topic $topic)
+    public function show(Request $request, Topic $topic)
     {
+
         $user = $topic->user;
-        $replies = $topic->replies()->with('user')->orderBy('id','desc')->get();
-        return view('topics.show',compact('topic','user','replies'));
+        $replies = $topic->replies()->with('user')->orderBy('id', 'desc')->get();
+
+
+        // URL 矫正
+        //如果字段slug不为空 且 字段slug的值 != URl中的slug
+        //就重定向  到这个方法
+        //如果URL符合要求  这个判断 == false
+        if (!empty($topic->slug) && $topic->slug != $request->slug) {
+            return redirect(route('topics.show', array($topic->id, $topic->slug)), 301);
+        }
+
+        return view('topics.show', compact('topic', 'user', 'replies'));
     }
 
 
@@ -74,16 +85,16 @@ class TopicsController extends Controller
             'file_path' => ''
         ];
 
-        if($request->upload_file){
-            $path = $uploader->getImageStorePath($request->upload_file,'Topics');
+        if ($request->upload_file) {
+            $path = $uploader->getImageStorePath($request->upload_file, 'Topics');
 
 
-                $data['success']   = true;
-                $data['msg']       = "上传成功!";
-                $data['file_path'] = asset(Storage::url($path));
+            $data['success'] = true;
+            $data['msg'] = "上传成功!";
+            $data['file_path'] = asset(Storage::url($path));
 
-            }
-            return $data;
+        }
+        return $data;
 
     }
 }
